@@ -1,0 +1,58 @@
+.root {
+  display: flex;
+  transition: background ease-out 0.2s;
+
+  &.disabled {
+    opacity: 0.75;
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.025);
+
+    &.dark {
+      background: rgba(255, 255, 255, 0.025);
+    }
+  }
+
+  .leading {
+    flex: 0 0 auto;
+  }
+
+  .content {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  &:not(:last-child) .content {
+    border-bottom: 1px solid var(--c-bg-secondary);
+  }
+
+  .main {
+    flex: 1 0 auto;
+  }
+
+  .trailing {
+    flex: 0 0 auto;
+  }
+
+  &.macos {
+    padding: 0 16px;
+
+    .content {
+      padding: 10px 0;
+    }
+  }
+
+  &.md {
+    padding-left: 20px;
+
+    .content {
+      padding: 16px 20px 16px 0;
+    }
+  }
+}
+
+label.root::after {
+  pointer-events: none;
+}

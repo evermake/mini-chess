@@ -1,0 +1,54 @@
+:root {
+  --c-primary: var(--tg-theme-link-color);
+  --c-bg: var(--tg-theme-bg-color);
+  --c-bg-secondary: var(--tg-theme-secondary-bg-color);
+  --c-text: var(--tg-theme-text-color);
+  --c-muted: var(--tg-theme-hint-color);
+
+  &, &.md {
+    --c-success: #5ACD30;
+    --c-danger: #DE3A3A;
+  }
+
+  &.macos {
+    --c-success: #28CD41;
+    --c-danger: #FF3B30;
+  }
+
+  &.macos.dark {
+    --c-success: #32D74B;
+    --c-danger: #FF453A;
+  }
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+html.bg-secondary,
+html.bg-secondary body {
+  background: var(--c-bg-secondary);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+legend {
+  padding: 0;
+  display: block;
+}
+
+fieldset {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}

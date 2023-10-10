@@ -1,0 +1,19 @@
+.root {
+  --_c-border: #404040;
+}
+
+.root {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  &:not(:last-child) .content {
+    border-bottom: 1px solid var(--_c-border);
+  }
+}
+
+.leading {}
+
+.content {
+}
+
+.trailing {}

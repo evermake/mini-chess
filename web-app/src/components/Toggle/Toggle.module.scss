@@ -1,0 +1,115 @@
+.root {
+  input {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    outline: none;
+    margin: 0;
+    position: absolute;
+  }
+}
+
+.root.macos {
+  --_track-bg: var(--c-bg-secondary);
+  --_track-bg-active: var(--c-primary);
+  --_thumb-bg: var(--c-bg);
+  
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border-radius: 32px;
+  background: var(--_track-bg);
+  transition: background ease-out 0.25s;
+
+  .thumb {
+    background: var(--_thumb-bg);
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    transition: transform ease-out 0.1s;
+  }
+
+  &.toggled {
+    background: var(--_track-bg-active);
+    transition: background ease 0.2s;
+
+    .thumb {
+      transform: translateX(calc(32px - 18px - 2px));
+    }
+  }
+
+  &.disabled {
+    opacity: 0.75;
+  }
+}
+
+.root.md {
+  --_c-thumb-bg: var(--c-bg);
+  --_c-inactive: var(--c-muted);
+  --_c-active: var(--c-primary);
+
+  position: relative;
+  width: 32px;
+  height: 14px;
+  border-radius: 14px;
+  background: var(--_c-inactive);
+  transition: background ease-out 0.25s;
+
+  .thumb {
+    overflow: visible;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 14px;
+    background: transparent;
+    left: 0;
+    top: 0;
+    transition: transform ease-out 0.25s;
+  }
+
+  &.toggled {
+    background: var(--_c-active);
+    transition: background ease 0.2s;
+
+    .thumb {
+      transform: translateX(calc(32px - 14px));
+    }
+
+    .thumb::before {
+      background: var(--_c-active);
+      transition: background ease 0.2s;
+    }
+  }
+
+  .thumb {
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      background: var(--_c-inactive);
+      transition: background ease-out 0.25s;
+    }
+
+    &::after {
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      background: var(--_c-thumb-bg);
+    }
+  }
+}
