@@ -7,7 +7,9 @@ export class TelegramService {
 
   private constructor() {
     this.bot = new Bot(config().botToken)
-    this.bot.command("start", (ctx) => ctx.reply("Hey hey"))
+    this.bot.command("start", async (ctx) => {
+      await ctx.reply("Create a new game by pressing the menu button.")
+    })
 
     this.bot.start()
   }

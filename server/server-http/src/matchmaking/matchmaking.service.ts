@@ -64,8 +64,10 @@ export class MatchmakingService {
     })
 
     const gameHash = this.tokenService.encryptGameId(game.id)
+    const userId = Number.parseInt(user.telegramId)
+    const link = `${this.configService.get("botInvitationPrefix")}${gameHash}`
 
-    this.telegramService.sendMessage(Number.parseInt(user.telegramId), `${this.configService.get("botInvitationPrefix")}${gameHash}`)
+    this.telegramService.sendMessage(userId, `Join the game with the link:\n\n${link}`)
 
     return {
       hash: gameHash,
