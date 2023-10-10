@@ -19,6 +19,7 @@ Chess Mini App consits of two parts:
 ### Web App (frontend)
 
 Chess Mini App actually consists of two Web Apps:
+
 1. First is used to provide an interface for a user to create a new lobby;
 2. Second one is actually for playing chess in the created lobby.
 
