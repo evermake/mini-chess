@@ -106,7 +106,11 @@ function Lobby({
     }
   }, [gameStatus])
 
-  const gameActive = gameStatus === "in-progress"
+  const gameActive = (
+    gameStatus === "in-progress"
+    || gameStatus === "not-started"
+    || gameStatus === "paused"
+  )
 
   return (
     <div className={classes.root}>
