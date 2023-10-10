@@ -1,8 +1,41 @@
-# Telegram Chess Game Server
+# Mini-chess socketio server
+
+This service is responsible for playing the actual game of chess :)
+
+### Stack
+
+Build with socket.io and prisma
+
+## Building and running
+
+### Build
+
+Assuming you are in the directory of this README.md
+
+```
+$ cd ../../
+$ pnpm i
+$ cd server/
+$ pnpm prisma:generate
+$ pnpm build:socketio
+```
+
+### Running
+
+Assuming you are in the directory of this README.md
+
+```
+$ cd ../
+$ pnpm start:socketio
+```
+
+Make sure to set environment variables like in ../.env.template
 
 ## How to connect
 
 Connect via socket.io and pass session token to `headers['Authentication']`
+
+server-http service provides client with session token
 
 # API
 
@@ -241,3 +274,9 @@ Args:
     drawOffer: string
 }
 ```
+
+### surrender
+
+This events ends the game immediately. The callee loses the game
+
+No arguments.
