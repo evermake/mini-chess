@@ -4,6 +4,7 @@ import { ConfigService } from "@nestjs/config"
 import { PrismaService } from "../services/prisma.service"
 import { UserService } from "../services/user.service"
 import { TokenService } from "../services/token.service"
+import { TelegramService } from "../services/telegram.service"
 import { CreateGameDto, CreateGameSide } from "./dto/createGame.dto"
 import { GameDto } from "./dto/game.dto"
 import { InviteHashDto } from "./dto/inviteHash.dto"
@@ -11,12 +12,15 @@ import { UserDto } from "./dto/user.dto"
 
 @Injectable()
 export class MatchmakingService {
+  private readonly telegramService: TelegramService
+
   constructor(
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
     private readonly configService: ConfigService,
   ) {
+    this.telegramService = TelegramService.Instance
   }
 
   async createGame(auth: string, data: CreateGameDto): Promise<InviteHashDto> {
@@ -57,8 +61,12 @@ export class MatchmakingService {
       },
     })
 
+    const gameHash = this.tokenService.encryptGameId(game.id)
+
+    this.telegramService.sendMessage(Number.parseInt(user.telegramId), `${this.configService.get("botInvitationPrefix")}${gameHash}`)
+
     return {
-      hash: this.tokenService.encryptGameId(game.id),
+      hash: gameHash,
     }
   }
 
