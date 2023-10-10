@@ -1,0 +1,76 @@
+version: '3'
+services:
+  server-socketio:
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      prisma-migrate:
+        condition: service_completed_successfully
+    command: pnpm run start:socketio 
+    env_file:
+      - .env
+    restart: unless-stopped
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '10'
+
+  server-http:
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      prisma-migrate:
+        condition: service_completed_successfully
+    command: pnpm run start:http 
+    env_file:
+      - .env
+    restart: unless-stopped
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '10'
+
+  prisma-migrate:
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: pnpm dlx prisma migrate deploy
+    env_file:
+      - .env
+    restart: no
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '10'
+
+  postgres:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: always
+    ports:
+      - 80:80 # Needed for the ACME HTTP-01 challenge.
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    env_file:
+      - .env

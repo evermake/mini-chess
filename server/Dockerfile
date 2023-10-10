@@ -6,12 +6,11 @@ COPY ./package.json ./
 RUN npm i -g pnpm
 RUN pnpm i
 
-COPY ./.env ./
 COPY ./prisma ./
 COPY ./server-socketio ./server-socketio
+COPY ./server-http ./server-http
 RUN pnpm prisma:generate
 RUN pnpm build:socketio
+RUN pnpm build:http
 
-EXPOSE 4001
-
-CMD ["pnpm", "start:socketio"]
+CMD ["echo", "editme"]
