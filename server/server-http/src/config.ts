@@ -24,14 +24,14 @@ export default () => {
   }
 
   return {
-    port: GAME_HTTP_PORT ?? 4000,
+    port: GAME_HTTP_PORT || 4000,
     tokenSecret: TOKEN_SECRET,
     gameServerUrl: GAME_HTTP_SERVER_URL ?? "http://localhost:4001",
     iv: GAME_HTTP_ENCODING_IV,
     key: GAME_HTTP_ENCODING_KEY,
     userVerificationKey: createHmac("SHA256", "WebAppData").update(BOT_TOKEN).digest(),
     botToken: BOT_TOKEN,
-    authorizationExpiresInMinutes: GAME_HTTP_AUTHORIZATION_EXPIRES_IN_MINUTES ?? 10000,
+    authorizationExpiresInMinutes: GAME_HTTP_AUTHORIZATION_EXPIRES_IN_MINUTES || 10000,
     botInvitationPrefix: GAME_HTTP_BOT_INVITATION_PREFIX ?? "t.me/blah-blah?game=",
   }
 }
