@@ -23,7 +23,7 @@ export function setup(server: Server, gameService: GameService) {
   server.on("connection", (socket) => {
     let player: PlayerData
     try {
-      player = tokenService.verifyPlayer(socket.handshake.headers.authentication!.toString())
+      player = tokenService.verifyPlayer(socket.handshake.headers.authorization!.toString())
     } catch (e) {
       socket.emit(EmittedEvents.exception, exception("Auth token is invalid or missing"))
       socket.disconnect()

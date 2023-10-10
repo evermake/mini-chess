@@ -41,9 +41,8 @@ function Lobby({
         from: selectedPieceSquare,
         to: square,
       }
-      board.move(move)
-      setLastMove(move)
       makeMove(move)
+      setLastMove(move)
       setSelectedPieceSquare(null)
     } else {
       setSelectedPieceSquare(square)
