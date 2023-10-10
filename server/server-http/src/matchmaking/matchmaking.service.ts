@@ -7,6 +7,7 @@ import { TokenService } from "../services/token.service"
 import { CreateGameDto, CreateGameSide } from "./dto/createGame.dto"
 import { GameDto } from "./dto/game.dto"
 import { InviteHashDto } from "./dto/inviteHash.dto"
+import { UserDto } from "./dto/user.dto"
 
 @Injectable()
 export class MatchmakingService {
@@ -113,6 +114,28 @@ export class MatchmakingService {
         side: sideObject.whiteId ? "white" : "black",
         gameId: game.id,
       }),
+    }
+  }
+
+  async getUser(userIdString: string): Promise<UserDto> {
+    const userId = Number.parseInt(userIdString)
+    if (userId.toString() !== userIdString) {
+      throw new HttpException("UserId must be integer", HttpStatus.BAD_REQUEST)
+    }
+
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        id: userId,
+      },
+    })
+
+    if (!user) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND)
+    }
+
+    return {
+      name: user.name,
+      photoUrl: user.photoUrl,
     }
   }
 }
