@@ -14,7 +14,7 @@ export class MatchmakingController {
 
   @Post("/game")
   async createGame(
-    @Headers("authorization") auth,
+    @Headers("authorization") auth: string,
     @Body() data: CreateGameDto,
   ): Promise<InviteHashDto> {
     return this.matchmakingService.createGame(auth, data)
@@ -22,7 +22,7 @@ export class MatchmakingController {
 
   @Get("/game/:gameHash")
   async connectToGame(
-    @Headers("authorization") auth,
+    @Headers("authorization") auth: string,
     @Param("gameHash") gameHash: string,
   ): Promise<GameDto> {
     return this.matchmakingService.connectToGame(auth, gameHash)

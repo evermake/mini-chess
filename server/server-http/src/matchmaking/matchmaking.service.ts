@@ -24,11 +24,13 @@ export class MatchmakingService {
   }
 
   async createGame(auth: string, data: CreateGameDto): Promise<InviteHashDto> {
-    const user = await this.userService.getUserByTelegramToken(auth)
+    const user = await this.userService.getUserByTelegramInitData(auth)
 
     if (!data.enableTimer) {
-      // TODO
-      throw new HttpException("Creation of a game without timer is unimplemented yet", HttpStatus.NOT_IMPLEMENTED)
+      // TODO: allow players to create true no-timer games
+      data.enableTimer = true
+      data.initialTime = 1000000000
+      data.timeIncrement = 0
     }
 
     if (data.enableTimer && (!data.initialTime || !data.timeIncrement)) {
@@ -83,7 +85,7 @@ export class MatchmakingService {
       throw new HttpException("Bad or expired invite link", HttpStatus.BAD_REQUEST)
     }
 
-    const user = await this.userService.getUserByTelegramToken(auth)
+    const user = await this.userService.getUserByTelegramInitData(auth)
     if (user.id === game.whiteId || user.id === game.blackId) {
       return {
         gameServerUrl: this.configService.get<string>("gameServerUrl"),

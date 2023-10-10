@@ -11,8 +11,8 @@ export class UserService {
   ) {
   }
 
-  public async getUserByTelegramToken(token: string) {
-    const user = this.verifyUserData(token)
+  public async getUserByTelegramInitData(initData: string) {
+    const user = this.verifyInitData(initData)
     return this.prismaService.user.upsert({
       where: {
         telegramId: user.id.toString(),
@@ -29,19 +29,33 @@ export class UserService {
     })
   }
 
-  private verifyUserData(token: string): {
+  private verifyInitData(initData: string): {
     id: number
     first_name: string
     last_name?: string
     username?: string
     photo_url?: string
   } {
-    const searchParams = new URLSearchParams(token)
-    const userObject: Record<string, any> = {}
-    for (const [key, value] of searchParams) {
-      userObject[key] = value
+    const initDataObject = this.parseQuery(initData)
+    const dataCheckString = this.getDataCheckString(initDataObject)
+
+    const hash = createHmac("SHA256", this.configService.get("userVerificationKey"))
+      .update(dataCheckString)
+      .digest("hex")
+
+    if (hash !== initDataObject.hash) {
+      throw new HttpException("Bad authorization token", HttpStatus.UNAUTHORIZED)
     }
-    const userObjectKeys = Object.keys(userObject).sort()
+
+    if ((Date.now() / 1000 - Number(initDataObject.auth_date)) / 60 > this.configService.get("authorizationExpiresInMinutes")) {
+      throw new HttpException("Authorization token expired", HttpStatus.UNAUTHORIZED)
+    }
+
+    return JSON.parse(initDataObject.user.toString())
+  }
+
+  private getDataCheckString(initDataObject: Record<string, any>) {
+    const userObjectKeys = Object.keys(initDataObject).sort()
     let dataCheckString = ""
     for (const key of userObjectKeys) {
       if (key === "hash") {
@@ -50,21 +64,17 @@ export class UserService {
       if (dataCheckString !== "") {
         dataCheckString += "\n"
       }
-      dataCheckString += `${key}=${userObject[key]}`
+      dataCheckString += `${key}=${initDataObject[key]}`
     }
+    return dataCheckString
+  }
 
-    const hash = createHmac("SHA256", this.configService.get("userVerificationKey"))
-      .update(dataCheckString)
-      .digest("hex")
-
-    if (hash !== userObject.hash) {
-      throw new HttpException("Bad authorization token", HttpStatus.UNAUTHORIZED)
+  private parseQuery(query: string): Record<string, any> {
+    const searchParams = new URLSearchParams(query)
+    const object: Record<string, any> = {}
+    for (const [key, value] of searchParams) {
+      object[key] = value
     }
-
-    if ((Date.now() / 1000 - Number(userObject.auth_date)) / 60 > this.configService.get("authorizationExpiresInMinutes")) {
-      throw new HttpException("Authorization token expired", HttpStatus.UNAUTHORIZED)
-    }
-
-    return JSON.parse(userObject.user.toString())
+    return object
   }
 }
