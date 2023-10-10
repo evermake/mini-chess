@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int    @id @default(autoincrement())
+  telegramId   String @unique
+  gamesAsWhite Game[] @relation("GamePlayerWhite")
+  gamesAsBlack Game[] @relation("GamePlayerBlack")
+}
+
+model Game {
+  id            Int      @id @default(autoincrement())
+  white         User?    @relation("GamePlayerWhite", fields: [whiteId], references: [id])
+  whiteId       Int?
+  black         User?    @relation("GamePlayerBlack", fields: [blackId], references: [id])
+  blackId       Int?
+  updatedAt     DateTime
+  status        Status
+  fen           String
+  isPaused      Boolean
+  timeLimitW    Int
+  timeLimitB    Int
+  timeIncrement Int
+}
+
+enum Status {
+  WHITE
+  BLACK
+  DRAW
+  IN_PROGRESS
+}

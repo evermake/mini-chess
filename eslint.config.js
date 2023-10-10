@@ -11,6 +11,9 @@ export default antfu(
       "style/brace-style": ["error", "1tbs"],
 
       "ts/consistent-type-definitions": ["error", "type"],
+
+      "node/prefer-global/process": ["error", "always"],
+      "ts/consistent-type-imports": "off",
     },
   },
 )
