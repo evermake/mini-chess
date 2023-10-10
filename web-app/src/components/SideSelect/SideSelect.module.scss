@@ -1,0 +1,56 @@
+.root {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+
+  &.macos {
+    .king {
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--_border-color);
+    }
+  }
+
+  &.md {
+    .king {
+      padding: 6px;
+      border-radius: 8px;
+      border: 3px solid transparent;
+    }
+
+    .option.selected {
+      .king {
+        border: 3px solid var(--_border-color);
+      }
+    }
+  }
+}
+
+.option {
+  --_color: var(--c-text);
+  --_border-color: var(--c-muted);
+
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 12px 0;
+  align-items: center;
+  gap: 8px;
+  color: var(--_color);
+
+  &.selected {
+    --_color: var(--c-primary);
+    --_border-color: var(--c-primary);
+  }
+}
+
+.king {
+  width: 72px;
+  height: 72px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}

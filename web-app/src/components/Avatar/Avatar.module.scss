@@ -1,0 +1,14 @@
+$size: 44px;
+
+.root {
+  height: $size;
+  width: $size;
+  border-radius: $size;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  background: var(--c-muted);
+}

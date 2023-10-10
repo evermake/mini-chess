@@ -1,0 +1,36 @@
+.root {
+  --_c-bg: #282828;
+  --_c-hint: #8B8B8B;
+}
+
+.root {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+.title,
+.hint {
+  font-weight: 400;
+  color: var(--_c-hint);
+  font-size: 11px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.title {
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  margin: 0;
+}
+
+.container {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--_c-bg);
+}
+
+.hint {
+  padding-top: 6px;
+}

@@ -1,0 +1,54 @@
+.root {
+  display: block;
+
+  &.macos {
+    margin: 20px;
+
+    .title {
+      padding: 0 16px 6px;
+    }
+
+    .paper {
+      border-radius: 10px;
+    }
+
+    .footer {
+      padding: 6px 16px 0;
+    }
+  }
+
+  &.md {
+    margin-bottom: 12px;
+
+    .title {
+      padding: 20px 20px 0;
+      background: var(--c-bg);
+    }
+
+    .paper {
+      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);  
+    }
+
+    .footer {
+      padding: 12px 20px 4px;
+    }
+  }
+}
+
+.paper {
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+.title,
+.footer {
+  display: block;
+}
+
+.title {
+}
+
+.footer {
+}

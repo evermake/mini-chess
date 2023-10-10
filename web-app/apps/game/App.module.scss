@@ -1,0 +1,42 @@
+$user-container-height: 50px;
+$board-margin: 4px;
+$bar-size: 4px;
+
+.root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  // Add spacing, because of the 4px bars on top and bottom of the screen.
+  padding: $bar-size 0;
+}
+
+.topArea,
+.bottomArea {
+  height: $user-container-height;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 12px;
+}
+
+.gameArea {
+  // Maximum height of the game area is calculated such that content above and below will fit in the screen.
+  --_height: min(100vw, calc(100vh - #{$user-container-height * 2} - #{$board-margin * 2} - #{$bar-size * 2}));
+  --board-size: var(--_height);
+
+  flex: 0 0 auto;
+  background: var(--c-bg-secondary);
+  margin: $board-margin 0;
+  max-height: var(--_height);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

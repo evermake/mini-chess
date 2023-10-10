@@ -1,0 +1,20 @@
+.bar {
+  width: var(--_progress, 100%);
+  height: 4px;
+  max-height: 4px;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+
+  &.position-top { top: 0; }
+  &.position-bottom { bottom: 0; }
+
+  &.color-primary { background: var(--c-primary); }
+  &.color-muted { background: var(--c-muted); }
+  &.color-success { background: var(--c-success); }
+  &.color-danger { background: var(--c-danger); }
+
+  &.hidden {
+    max-height: 0;
+  }
+}

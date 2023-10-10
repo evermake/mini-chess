@@ -1,0 +1,50 @@
+{
+  "name": "mini-chess-server",
+  "version": "1.0.0",
+  "description": "MiniChessBot backend server.",
+  "license": "MIT",
+  "scripts": {
+    "prisma:generate": "pnpm dlx prisma generate",
+    "build:socketio": "cd server-socketio && tsc",
+    "start:socketio": "node server-socketio/dist/index.js",
+    "build:http": "cd server-http && nest build",
+    "start:http": "node server-http/dist/main.js"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.4.3",
+    "@nestjs/config": "^3.1.1",
+    "@nestjs/core": "^9.4.3",
+    "@nestjs/platform-express": "^9.4.3",
+    "@prisma/client": "^5.4.2",
+    "chess.js": "^1.0.0-beta.6",
+    "grammy": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.5.0",
+    "@nestjs/schematics": "^9.2.0",
+    "@nestjs/testing": "^9.4.3",
+    "@types/express": "^4.17.18",
+    "@types/jest": "29.2.4",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/node": "18.11.18",
+    "@types/supertest": "^2.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "29.3.1",
+    "prettier": "^2.8.8",
+    "prisma": "^5.4.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.3",
+    "ts-jest": "29.0.3",
+    "ts-loader": "^9.5.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "4.1.1",
+    "typescript": "^4.9.5"
+  }
+}
