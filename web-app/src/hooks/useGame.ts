@@ -91,7 +91,12 @@ function gameStateToLocal(
   }: GameState,
   board: Chess,
 ): LocalGameState {
-  const clock = timeLimitW >= 0 && timeLimitB >= 0
+  const clock = (
+    timeLimitW >= 0
+    && timeLimitB >= 0
+    && timeLimitW < 36000000
+    && timeLimitB < 36000000
+  )
     ? {
         timeLeftWhiteMs: timeLimitW,
         timeLeftBlackMs: timeLimitB,

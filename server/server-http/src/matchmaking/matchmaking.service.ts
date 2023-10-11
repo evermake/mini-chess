@@ -33,7 +33,7 @@ export class MatchmakingService {
       data.timeIncrement = 0
     }
 
-    if (data.enableTimer && (!data.initialTime || !data.timeIncrement)) {
+    if (data.enableTimer && (data.initialTime == null || data.timeIncrement == null)) {
       throw new HttpException("Provide initialTime and timeIncrement", HttpStatus.BAD_REQUEST)
     }
 
