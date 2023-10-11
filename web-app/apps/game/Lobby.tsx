@@ -136,7 +136,7 @@ function Lobby({
           lastMove={lastMove}
           onSquareClick={handleSquareClick}
           onAwayClick={handleAwayClick}
-          disabled={needSync || gameActive}
+          disabled={needSync || !gameActive}
         />
       </div>
       <div className={classes.bottomArea}>
